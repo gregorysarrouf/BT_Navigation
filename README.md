@@ -44,7 +44,7 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:
 Then add the 2D point estimate on the Rviz2 map to approximate the robot's location and run the following commands from your project’s directory
 ```
 cd build  
-./NavBT
+./bt_nav
 ```
 
 
