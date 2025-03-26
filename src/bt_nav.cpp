@@ -53,17 +53,24 @@ class GoToLocation : public BT::SyncActionNode {
       GoToLocation(const std::string& name) : BT::SyncActionNode(name, {}) {}
   
       BT::NodeStatus tick() override {
-          std::string scriptCommand = 
+          std::string moveCommand = 
             "../scripts/nav_to_location.py " + 
             std::to_string(locationCoords[locIdx][0]) +
 	    " " +
             std::to_string(locationCoords[locIdx][1]);
 
           std::cout << "Navigating to: " << locationNames[locIdx] << std::endl;
+	  system(moveCommand.c_str());
+
+	  if (locIdx != 4) {
+	      std::string spinCommand = "../scripts/spin_robot.py";
+	      std::cout << "Cleaning Location: " << locationNames[locIdx] << std::endl;
+	      system(spinCommand.c_str());
+	  }
+
           locIdx = (locIdx == 4) ? 0 : locIdx = (locIdx + 1) % 4;
 
-          system(scriptCommand.c_str());
-          return BT::NodeStatus::SUCCESS;
+	  return BT::NodeStatus::SUCCESS;
       }
   };
   
