@@ -1,0 +1,25 @@
+<root BTCPP_format="4">
+  <BehaviorTree ID="NavBT">
+
+      <!-- Executes children in order untill one returns SUCCESS or all return FAILURE -->
+      <Fallback name="rootFallback">
+        
+        <!-- Executes children in order untill one returns FAILURE or all return SUCCESS -->
+        <Sequence name="BatterySequence">
+          <isBatteryLow/>             <!-- Check if battery is less than 25% -->
+          <setChargingLocation/>      <!-- Navigate to charging station -->
+          <goToLocation/>
+          <recharge/>                 <!-- Recharge for 30s -->
+          <fillBattery/>              <!-- Fill Battery -->
+        </Sequence>
+        
+        <!-- Executes children in order untill one returns FAILURE or all return SUCCESS -->
+        <Sequence name="NavigationSequence">
+          <goToLocation/>            <!-- Go to the next location -->
+          <decreaseBattery/>          <!-- Decrease the battery by 20% -->
+        </Sequence>
+        
+      </Fallback>
+
+  </BehaviorTree>
+</root>
